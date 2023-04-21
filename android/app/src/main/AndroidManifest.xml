@@ -1,7 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     package="com.example.admin_mobile_sevenman">
    <application
         android:label="admin_mobile_sevenman"
+=======
+    package="com.example.project1">
+   <application
+        android:label="project1"
+>>>>>>> 606df4e (re)
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

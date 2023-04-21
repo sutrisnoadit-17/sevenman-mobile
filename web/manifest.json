@@ -1,6 +1,11 @@
 {
+<<<<<<< HEAD
     "name": "admin_mobile_sevenman",
     "short_name": "admin_mobile_sevenman",
+=======
+    "name": "project1",
+    "short_name": "project1",
+>>>>>>> 606df4e (re)
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

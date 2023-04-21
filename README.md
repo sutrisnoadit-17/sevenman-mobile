@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # admin_mobile_sevenman
+=======
+# project1
+>>>>>>> 606df4e (re)
 
 A new Flutter project.
 
