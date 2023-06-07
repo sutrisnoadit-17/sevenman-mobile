@@ -197,7 +197,7 @@ class _jadwalState extends State<jadwal> {
                       width: 100,
                       height: 50,
                       child: Image.network(
-                        'https://c4.wallpaperflare.com/wallpaper/430/205/306/genshin-impact-anime-girls-sucrose-genshin-impact-hd-wallpaper-preview.jpg',
+                        'https://assets.ayobandung.com/crop/0x0:0x0/750x0/webp/photo/2023/02/03/313280101.jpg',
                       ),
                     ),
                   ),
