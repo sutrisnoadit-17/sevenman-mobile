@@ -3,6 +3,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:project3/kontennya.dart';
+import 'models/login.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -13,17 +15,19 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   bool visibilityPass = false;
+  bool _isInAsyncCall = false;
 
-  final String myUser = '2022123';
-  final String myPass = 'login123';
   TextEditingController cUser = TextEditingController();
   TextEditingController cPass = TextEditingController();
+  httpLoginReq dataResp = httpLoginReq();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //=====================background============
-      body: Container(
+        //=====================background============
+        body: ModalProgressHUD(
+      inAsyncCall: _isInAsyncCall,
+      child: Container(
         width: double.infinity,
         height: double.infinity,
         padding: const EdgeInsets.all(8),
@@ -186,26 +190,39 @@ class _LoginFormState extends State<LoginForm> {
           ),
         ),
       ),
-    );
+    ));
   }
 
 //============logikapercabangan=============
   void CekLogin(BuildContext context) {
-    if (cUser.text == myUser && cPass.text == myPass) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => dash(),
-        ),
-      );
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => dash(),
-          ));
-    } else {
-      showalert(context);
-    }
+    FocusScope.of(context).requestFocus(new FocusNode());
+    setState(() {
+      _isInAsyncCall = true;
+    });
+
+    httpLoginReq.login(cUser.text, cPass.text).then((value) => {
+          // print(value),
+          setState(
+            () {
+              if (value.succesMsg == "User Found") {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => dash(),
+                  ),
+                );
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => dash(),
+                    ));
+              } else {
+                showalert(context);
+                _isInAsyncCall = false;
+              }
+            },
+          ),
+        });
   }
 
 //==============errormessage===================
