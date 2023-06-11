@@ -1,16 +1,16 @@
-# project3
+# Sevenman Mobile
 
-A new Flutter project.
+Sevenman Mobile Merupakan Aplikasi Berbasis Mobile Untuk Peminjaman Lab dan Barang Pada Laboratorium Informatika Universitas Muhammadiyah Malang 
+# Our Team
+User Interface / User Experience : 
+- Bimo Yudistira Ariel (202210370311014)
 
-## Getting Started
+Front-End : 
 
-This project is a starting point for a Flutter application.
+- Rahmatun Nikmah (202210370311109)
+- Mukhammad Rezarudin Yusuf (202210370311358)
 
-A few resources to get you started if this is your first Flutter project:
+Back-End : 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Sutrisno Adit Pratama (202210370311203)
+            
