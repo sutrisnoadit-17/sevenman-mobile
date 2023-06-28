@@ -89,7 +89,7 @@ class dashboard extends StatelessWidget {
     return Scaffold(
       body: Container(
         child: Center(
-          child: schedule(),
+          child: Text("Dashboard"),
         ),
       ),
     );
@@ -101,14 +101,8 @@ class item extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: const Center(
-          child: Text(
-            'History',
-            style: TextStyle(
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+        child: Center(
+          child: schedule(),
         ),
       ),
     );
@@ -120,7 +114,7 @@ class orang extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child:  Center(
+        child: Center(
           child: TamProfil(),
         ),
       ),
