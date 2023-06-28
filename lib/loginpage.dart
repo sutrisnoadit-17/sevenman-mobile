@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:project3/kontennya.dart';
 import 'models/login.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});

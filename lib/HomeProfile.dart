@@ -5,6 +5,7 @@ import 'package:project3/componens/FontNColor.dart';
 import 'package:project3/AboutApp.dart';
 import 'package:project3/loginpage.dart';
 import 'package:project3/models/login.dart';
+import 'package:project3/help&support.dart';
 
 void fetchData() {}
 
@@ -81,7 +82,11 @@ class _TamProfilState extends State<TamProfil> {
 
                     ),
                 onPressed: () {
-                  httpLoginReq.fetchData();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => help(),
+                      ));
                 },
                 child: Row(
                   children: [

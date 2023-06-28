@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:project3/kontennya.dart';
-import 'package:datetime_picker_field_platform/datetime_picker_field_platform.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:animated_custom_dropdown/custom_dropdown.dart';
+import 'package:quickalert/quickalert.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
 import 'package:intl/intl.dart';
+import 'package:project3/models/login.dart';
+import 'package:project3/models/loanModel.dart';
+import 'dart:developer';
 
 class jadwal extends StatefulWidget {
   jadwal({super.key});
@@ -14,10 +16,13 @@ class jadwal extends StatefulWidget {
 }
 
 class _jadwalState extends State<jadwal> {
+  var loanFor, lab, loanDate, scheduleAva, noteF;
   String? selvalue;
+  bool _saving = false;
   MultiSelectController _controller = MultiSelectController();
   String? laboratory;
   TextEditingController selectdate = TextEditingController();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -33,7 +38,9 @@ class _jadwalState extends State<jadwal> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+        body: ModalProgressHUD(
+      inAsyncCall: _saving,
+      child: SafeArea(
         child: SingleChildScrollView(
           child: Container(
             decoration: BoxDecoration(
@@ -68,9 +75,6 @@ class _jadwalState extends State<jadwal> {
                         margin: EdgeInsets.fromLTRB(78, 20, 14, 2),
                         width: 100,
                         height: 50,
-                        child: Image.network(
-                          'https://c4.wallpaperflare.com/wallpaper/430/205/306/genshin-impact-anime-girls-sucrose-genshin-impact-hd-wallpaper-preview.jpg',
-                        ),
                       ),
                     ),
                   ],
@@ -105,9 +109,10 @@ class _jadwalState extends State<jadwal> {
                     controller: username,
                     keyboardType: TextInputType.text,
                     showCursor: false,
+                    enabled: false,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'Username',
+                      hintText: httpLoginReq.name,
                       contentPadding: EdgeInsets.fromLTRB(17, 0, 0, 0),
                     ),
                   ),
@@ -149,6 +154,7 @@ class _jadwalState extends State<jadwal> {
                     onChanged: (value) {
                       setState(() {
                         selvalue = value;
+                        loanFor = value;
                       });
                       print('Selected item: $selvalue');
                     },
@@ -173,7 +179,6 @@ class _jadwalState extends State<jadwal> {
                       'UTBK',
                       'UTS',
                       'Demo Tugas',
-                      'Praktikum Pengganti',
                       'PKM',
                       'TAEP',
                       'Lomba',
@@ -223,6 +228,7 @@ class _jadwalState extends State<jadwal> {
                     onChanged: (value) {
                       setState(() {
                         laboratory = value;
+                        lab = value;
                       });
                       print('Selected item: $laboratory');
                     },
@@ -280,6 +286,7 @@ class _jadwalState extends State<jadwal> {
                                 DateFormat('dd-MMM-yyyy').format(pickedDate);
                             setState(() {
                               selectdate.text = formatdate;
+                              loanDate = formatdate;
                             });
                             print('Select item: $formatdate');
                           } else {
@@ -341,6 +348,7 @@ class _jadwalState extends State<jadwal> {
                     controller: _controller,
                     onOptionSelected: (options) {
                       debugPrint(options.toString());
+                      scheduleAva = options.toString();
                     },
                     options: <ValueItem>[
                       ValueItem(label: '1/ 07.00 - 07.50', value: '1'),
@@ -358,7 +366,7 @@ class _jadwalState extends State<jadwal> {
                       ValueItem(label: '13/ 19.05 - 19.55', value: '13'),
                       ValueItem(label: '14/ 19.55 - 20.45', value: '14'),
                     ],
-                    selectionType: SelectionType.multi,
+                    selectionType: SelectionType.single,
                     chipConfig: ChipConfig(wrapType: WrapType.wrap),
                     dropdownHeight: 300,
                     optionTextStyle: TextStyle(fontSize: 16),
@@ -414,16 +422,14 @@ class _jadwalState extends State<jadwal> {
                   height: 50,
                   child: ElevatedButton(
                     onPressed: () {
-                      if (username.text.isNotEmpty &&
-                          selvalue != null &&
+                      if (selvalue != null &&
                           laboratory != null &&
                           selectdate.text.isNotEmpty &&
                           _controller.selectedOptions.isNotEmpty &&
                           note.text.isNotEmpty) {
-                        print('all filled');
-                        print(note.text);
+                        submit();
                       } else {
-                        print('some are empty');
+                        alertFailed(context);
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -466,6 +472,53 @@ class _jadwalState extends State<jadwal> {
           ),
         ),
       ),
-    );
+    ));
+  }
+
+  void submit() {
+    int id = (lab == "LAB A/B")
+        ? 1
+        : (lab == "LAB C/D")
+            ? 2
+            : 3;
+    List storedData = List.empty(growable: true);
+    storedData.addAll([
+      id.toString(),
+      loanDate,
+      scheduleAva.substring(21, 34),
+      httpLoginReq.id,
+      httpLoginReq.name,
+      loanFor,
+      note.text
+    ]);
+    setState(() {
+      _saving = true;
+    });
+    inspect(storedData);
+    loanModel.storedLoan(storedData).then((value) => {
+          // print(value),
+          setState(
+            () {
+              if (value.succesMsg.toString() == "success") {
+                _saving = false;
+                alertSuccess(context);
+              }
+            },
+          ),
+        });
+  }
+
+  void alertSuccess(BuildContext context) {
+    QuickAlert.show(
+        context: context,
+        text: "Sukses Meminjam Lab",
+        type: QuickAlertType.success);
+  }
+
+  void alertFailed(BuildContext context) {
+    QuickAlert.show(
+        context: context,
+        text: "Form Tidak Boleh Kosong",
+        type: QuickAlertType.warning);
   }
 }
