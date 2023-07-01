@@ -39,7 +39,15 @@ class loanModel {
       "loan_for": argData[5]
     });
     var respRet = jsonDecode(storeData.body);
-    print(respRet);
+    return loanModel(succesMsg: respRet["message"]);
+  }
+
+  static Future<loanModel> deleteLoan(String argId) async {
+    Uri urlApi =
+        Uri.parse("https://api.bukan-web.xyz/api/sevenman/loan/" + argId);
+    var storeData =
+        await http.delete(urlApi, headers: {"Accept": "application/json"});
+    var respRet = jsonDecode(storeData.body);
     return loanModel(succesMsg: respRet["message"]);
   }
 }
