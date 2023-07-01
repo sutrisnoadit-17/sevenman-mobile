@@ -110,7 +110,7 @@ class _myschedule extends State<schedule> {
     loanModel.storedLoanItem(storedData).then((value) => {
           setState(
             () {
-              _saving = true;
+              // _saving = true;
               if (value.succesMsg.toString() == "success") {
                 _saving = false;
                 alertSuccess(context);

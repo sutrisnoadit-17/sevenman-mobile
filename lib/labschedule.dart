@@ -476,36 +476,37 @@ class _jadwalState extends State<jadwal> {
   }
 
   void submit() {
-    int id = (lab == "LAB A/B")
-        ? 1
-        : (lab == "LAB C/D")
-            ? 2
-            : 3;
-    List storedData = List.empty(growable: true);
-    storedData.addAll([
-      id.toString(),
-      loanDate,
-      scheduleAva.substring(21, 34),
-      httpLoginReq.id,
-      httpLoginReq.name,
-      loanFor,
-      note.text
-    ]);
-    setState(() {
-      _saving = true;
+    Future.delayed(const Duration(seconds: 1), () {
+      try {
+        int id = (lab == "LAB A/B")
+            ? 1
+            : (lab == "LAB C/D")
+                ? 2
+                : 3;
+        List storedData = List.empty(growable: true);
+        storedData.addAll([
+          id.toString(),
+          loanDate,
+          scheduleAva.substring(21, 34),
+          httpLoginReq.id,
+          httpLoginReq.name,
+          loanFor,
+          note.text
+        ]);
+        inspect(storedData);
+        loanModel.storedLoan(storedData).then((value) => {
+              // print(value),
+              setState(
+                () {
+                  if (value.succesMsg.toString() == "success") {
+                    _saving = false;
+                    alertSuccess(context);
+                  }
+                },
+              ),
+            });
+      } catch (e) {}
     });
-    inspect(storedData);
-    loanModel.storedLoan(storedData).then((value) => {
-          // print(value),
-          setState(
-            () {
-              if (value.succesMsg.toString() == "success") {
-                _saving = false;
-                alertSuccess(context);
-              }
-            },
-          ),
-        });
   }
 
   void alertSuccess(BuildContext context) {

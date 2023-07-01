@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project3/History.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:project3/componens/FontNColor.dart';
@@ -57,7 +58,13 @@ class _TamProfilState extends State<TamProfil> {
                     // backgroundColor: ProBox,
 
                     ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Phistory(),
+                      ));
+                },
                 child: Row(
                   children: [
                     Icon(Icons.history),
