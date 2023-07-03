@@ -28,10 +28,10 @@ class _PhistoryState extends State<Phistory> {
             bottom: TabBar(
               tabs: [
                 Tab(
-                  text: 'Item & Tool',
+                  child: Text("Item & Tool", style: TextStyle(color: fcolor, fontSize: 15),),
                 ),
                 Tab(
-                  text: 'Laboratory',
+                  child: Text("Laboratory", style: TextStyle(color: fcolor, fontSize: 15),),
                 ),
               ],
             ),

@@ -11,8 +11,10 @@ class TApp extends StatelessWidget {
     return Scaffold(
       backgroundColor: bgColor,
       appBar: AppBar(
+        backgroundColor: bgColor,
+        elevation: 0,
         title: Text('Tentang App',
-            style: TextStyle(fontSize: 20, color: Colors.white)),
+            style: TextStyle(fontSize: 20, color: fcolor)),
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(22, 106, 22, 20),

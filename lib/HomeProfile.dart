@@ -48,8 +48,8 @@ class _TamProfilState extends State<TamProfil> {
               ),
             ),
             SizedBox(height: 10),
-            Text(httpLoginReq.name),
-            Text(httpLoginReq.nim),
+            Text(httpLoginReq.name, style: TextStyle(fontSize: 17),),
+            Text(httpLoginReq.nim, style: TextStyle(fontSize: 17),),
             SizedBox(height: 25),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
