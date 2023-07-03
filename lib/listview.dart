@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multi_dropdown/multiselect_dropdown.dart';
+import 'package:project3/componens/FontNColor.dart';
 import 'package:project3/componens/button.dart';
 import 'dart:convert';
 import 'package:project3/models/login.dart';
@@ -46,23 +47,56 @@ class _myschedule extends State<schedule> {
                   itemCount: snapshot.data.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Card(
+                      margin: EdgeInsets.all(10),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
                       child: Column(
-                        mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
                           ListTile(
-                            leading: Icon(Icons.album),
-                            title: Text(snapshot.data[index]['item_name']),
+                            leading: Container(
+                              alignment: Alignment.centerLeft,
+                              width: 70,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 93, 116, 255),
+                                  boxShadow: [
+                                    BoxShadow(
+                                        color: Colors.black54, blurRadius: 6)
+                                  ],
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(9),
+                                      bottomRight: Radius.circular(9))),
+                              child: Center(
+                                child: Text(
+                                  '*',
+                                  style: TextStyle(
+                                    fontSize: 40,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            title: Text(snapshot.data[index]['item_name'], style: TextStyle(fontSize: 15),),
                             subtitle: Text(snapshot.data[index]['description'] +
                                 "\n" +
                                 "Location : " +
-                                snapshot.data[index]['location']),
+                                snapshot.data[index]['location'], style: TextStyle(fontSize: 15),),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              SizedBox(width: 8),
-                              TextButton(
-                                child: const Text('Pinjam'),
+                          SizedBox( height: 10,),
+                          Center(
+                            child: Container(
+                              height: 30,
+                              width: 350,
+                              decoration: BoxDecoration(
+                                boxShadow: [ BoxShadow(
+                                  color: ButBiru,
+                                  blurRadius: 7,
+                                )]
+                              ),
+                              child: ElevatedButton(
                                 onPressed: () async {
                                   if (await confirm(
                                     context,
@@ -79,9 +113,23 @@ class _myschedule extends State<schedule> {
                                   }
                                   return print('pressedCancel');
                                 },
-                              ),
-                              SizedBox(width: 8),
-                            ],
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(9),
+                                  ),
+                                  backgroundColor: ButBiru,
+                                  padding: EdgeInsets.all(5),
+                                ), 
+                                child: Container(
+                                  child: const Text(
+                                    "pinjam",
+                                    style:  TextStyle(
+                                      fontSize: 17,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                )),
+                            ),
                           ),
                         ],
                       ),

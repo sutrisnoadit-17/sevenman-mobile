@@ -1,5 +1,6 @@
 import 'package:contactus/contactus.dart';
 import 'package:flutter/material.dart';
+import 'package:project3/componens/FontNColor.dart';
 
 void main() {
   runApp(help());
@@ -11,8 +12,9 @@ class help extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: bgColor,
           appBar: AppBar(
+            backgroundColor: bgColor,
             leading: IconButton(
               icon: Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () => Navigator.of(context).pop(),
@@ -20,7 +22,7 @@ class help extends StatelessWidget {
             title: Text('Bantuan Dan Dukungan',
                 style: TextStyle(
                   fontSize: 20,
-                  color: Colors.white,
+                  color: fcolor,
                 )),
             centerTitle: true,
             elevation: 0,
@@ -28,7 +30,7 @@ class help extends StatelessWidget {
           body: Padding(
             padding: EdgeInsets.only(top: 100),
             child: ContactUs(
-              textColor: Colors.black,
+              textColor: fcolor,
               cardColor: Colors.white,
               companyColor: Colors.black,
               taglineColor: Colors.black,
